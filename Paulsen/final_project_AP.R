@@ -1,5 +1,7 @@
 ##final project code
 
+install.packages("genepop")
+library(genepop)
 library(readxl)
 
 ##had to go in excel and separate the sheets in the workbook into two diff workbooks
