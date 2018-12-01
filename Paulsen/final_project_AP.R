@@ -6,7 +6,10 @@ library(readxl)
 
 ##had to go in excel and separate the sheets in the workbook into two diff workbooks
 microsatellite_genotype <- read_excel("Microsatellite genotype data.xlsx")
+microsatellite_geno <- read_excel("microsatellite_genotype_data.xlsx", col_names = T)
 sampling_info <- read_excel("sampling_information.xlsx")
+
+str(microsatellite_geno)
 
 mtDNA_haplotypes <- read.table("Haplotypes of mtDNA-final.txt", sep = '\t', fill = T)
 
@@ -31,5 +34,10 @@ for (row in 1:nrow(mtDNA_haplotypes)) {
 }
 
 ##combine ids and sequences into pairs in data frame
-haplotypes <- do.call(rbind, Map(data.frame, ID = id, Sequence =sequence))
+haplotypes <- do.call(rbind, Map(data.frame, ID = id, Sequence = sequence))
+
+
+##write.csv(haplotypes, "mtDNA_haplotypes.csv")
+write.csv(haplotype, "mtDNA_haplotypes.csv")
+
 
