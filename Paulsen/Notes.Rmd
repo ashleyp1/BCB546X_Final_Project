@@ -11,3 +11,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 The weird numbers at the top of Microsatellite genotype data.xlsx are essential parameters for Genalex
+
+Microsatellite genotype data.xlsx has the original plus all the genalex analysis
+Microsatellite_genepop_data.xlsx has the orginal data transformed into a more genepop friendly form, it is further converted in R
+microsatellite_geno_pop.txt is the microsatellite data in genepop format
+sampling_information.xlsx is the sampling info sheet from the original data
