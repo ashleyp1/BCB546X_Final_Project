@@ -1,0 +1,7 @@
+Genepop
+GenepopInputFile=microsatellite_geno_pop.txt
+MenuOptions=6:1
+EstimationPloidy=Diploid
+RandomSeed=67144630
+Mode=Batch
+
