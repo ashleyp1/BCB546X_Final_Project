@@ -61,3 +61,7 @@ test_LD("microsatellite_geno_pop.txt", outputFile = "LD_microsatellite.txt", set
         dememorization = 10000, batches = 100, iterations = 5000,
         verbose = interactive())
 write_LD_tables("microsatellite_geno_pop.txt", outputFile = "", verbose = interactive())
+
+##FST
+Fst("microsatellite_geno_pop.txt", sizes = FALSE, pairs = FALSE, outputFile = "FST_microsatellite.txt",
+    dataType = "Diploid", verbose = interactive())
