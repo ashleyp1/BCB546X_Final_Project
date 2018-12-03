@@ -1,0 +1,47 @@
+ DnaSP  Ver. 6.12.01                        02 - December - 2018  6:31:07 PM
+ ===========================================================================
+
+
+ DNA Polymorphism
+ ----------------
+
+ Input Data File: C:\...\mtDNA_haplotypes.fasta
+ Population used: Ding
+    Number of sequences used: 8
+ Selected region: 1-685   Number of sites: 685
+ Total number of sites (excluding sites with gaps / missing data): 685
+
+ Number of polymorphic (segregating) sites, S: 5
+ Total number of mutations, Eta: 5
+
+ Number of Haplotypes, h: 5
+ Haplotype (gene) diversity, Hd: 0.786
+    Variance of Haplotype diversity: 0.02274
+       Standard Deviation of Haplotype diversity: 0.151
+
+ Nucleotide diversity, Pi: 0.00182
+ Theta (per site) from Eta: 0.00282
+
+ Theta (per site) from S, Theta-W: 0.00282
+    Variance of theta (no recombination): 0.0000027
+       Standard deviation of theta (no recombination): 0.00166
+    Variance of theta (free recombination): 0.0000016
+       Standard deviation of theta (free recombination): 0.00126
+
+ Finite Sites Model 
+    Theta (per site) from Pi: 0.00183
+    Theta (per site) from S: 0.00283
+    Theta (per site) from Eta: 0.00282
+
+ Average number of nucleotide differences, k: 1.250
+    Stochastic variance of k (no recombination), Vst(k): 0.593
+    Sampling variance of k (no recombination), Vs(k): 0.179
+       Total variance of k (no recombination), V(k): 0.771
+    Stochastic variance of k (free recombination), Vst(k): 0.417
+    Sampling variance of k (free recombination), Vs(k): 0.119
+       Total variance of k (free recombination), V(k): 0.536
+
+ Theta (per sequence) from S, Theta-W: 1.928
+    Variance of theta (no recombination): 1.290
+    Variance of theta (free recombination): 0.744
+
