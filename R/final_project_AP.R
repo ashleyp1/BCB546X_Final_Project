@@ -13,6 +13,7 @@ mtDNA_haplotypes <- read.table("Haplotypes of mtDNA-final.txt", sep = '\t', fill
 ##save haplotype data as characters for grep
 mtDNA_haplotypes[] <- lapply(mtDNA_haplotypes, as.character)
 
+##formatting mtDNA_haplotypes into fasta format
 mtDNA_haplotypes <- subset(mtDNA_haplotypes, V3=="") 
 mtDNA_haplotypes$V2 <- NULL
 mtDNA_haplotypes$V3 <- NULL
