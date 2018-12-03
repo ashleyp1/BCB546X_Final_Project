@@ -1,12 +1,11 @@
 ##final project code
 
-install.packages("genepop")
 library(genepop)
 library(readxl)
 
 ##had to go in excel and separate the sheets in the workbook into two diff workbooks
 microsatellite_genotype <- read_excel("Microsatellite genotype data.xlsx")
-microsatellite_geno <- read_excel("microsatellite_genotype_data.xlsx", col_names = T)
+microsatellite_geno <- read_excel("simple_microsatellite.xlsx", col_names = T)
 sampling_info <- read_excel("sampling_information.xlsx")
 mtDNA_haplotypes <- read.table("Haplotypes of mtDNA-final.txt", sep = '\t', fill = T)
 
@@ -14,27 +13,14 @@ mtDNA_haplotypes <- read.table("Haplotypes of mtDNA-final.txt", sep = '\t', fill
 ##save haplotype data as characters for grep
 mtDNA_haplotypes[] <- lapply(mtDNA_haplotypes, as.character)
 
-id <- list()
-sequence <- list()
-location <- list()
+mtDNA_haplotypes <- subset(mtDNA_haplotypes, V3=="") 
+mtDNA_haplotypes$V2 <- NULL
+mtDNA_haplotypes$V3 <- NULL
 
-## go through and separate out the locations, sequences and ids in order
-for (row in 1:nrow(mtDNA_haplotypes)) {
-  n <- mtDNA_haplotypes[row, "V1"]
-  if(grepl('>', n)==TRUE) {
-    id <- c(id, n)
-  } else if(grepl('CAT', n)==TRUE){
-    sequence <- c(sequence, n)
-  } else {
-    location <- c(location, n)
-  }
-}
-
-##combine ids and sequences into pairs in data frame
-haplotypes <- do.call(rbind, Map(data.frame, ID = id, Sequence = sequence))
-
+help("write.table")
 ##save the cleaned up tables
-write.csv(haplotypes, "mtDNA_haplotypes.csv")
+write.table(mtDNA_haplotypes, "mtDNA_haplotypes.fasta",quote = F, row.names = F,
+            col.names = F)
 write.table(microsatellite_geno, "microsatellite_geno.txt")
 
 
