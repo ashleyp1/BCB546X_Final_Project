@@ -1,13 +1,11 @@
 ---
-title: "README"
+title: "Analysis and Formatting in R"
 author: "Ashley Paulsen"
 date: "December 4, 2018"
 output: html_document
 ---
 
-#Analysis and Formatting in R
-
-##Importing and Formatting Data
+###Importing and Formatting Data
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
@@ -23,7 +21,7 @@ microsatellite_genotype <- read_excel("Microsatellite genotype data.xlsx")
 mtDNA_haplotypes <- read.table("Haplotypes of mtDNA-final.txt", sep = '\t', fill = T)
 ```
 
-###FASTA formatting
+####FASTA formatting
 
 We needed the mtDNA Haplotype information in FASTA fromat for another analysis.
 
@@ -41,7 +39,7 @@ write.table(mtDNA_haplotypes, "mtDNA_haplotypes.fasta",quote = F, row.names = F,
             col.names = F)
 ```
 
-### Genepop Data Formatting
+####Genepop Data Formatting
 
 Genepop requires a specific file format.
 
@@ -107,15 +105,15 @@ write.table(microsatellite_genotype, "microsatellite_geno_pop.txt", na = "" ,quo
 
 ```
 
-##Genepop Analysis
-###Hardy-Weinburg
+###Genepop Analysis
+####Hardy-Weinburg
 ```{}
 test_HW("microsatellite_geno_pop.txt", which = "Proba", outputFile = "HW_microsatellite.txt.P", settingsFile = "",
         enumeration = FALSE, dememorization = 10000, batches = 100,iterations = 1000,
         verbose = interactive())
 ```
 
-###Linkage Disequilibrium
+####Linkage Disequilibrium
 ```{}
 test_LD("microsatellite_geno_pop.txt", outputFile = "LD_microsatellite.txt", settingsFile = "",
         dememorization = 10000, batches = 100, iterations = 5000,
@@ -123,13 +121,13 @@ test_LD("microsatellite_geno_pop.txt", outputFile = "LD_microsatellite.txt", set
 write_LD_tables("microsatellite_geno_pop.txt", outputFile = "", verbose = interactive())
 ```
 
-###FST
+####FST
 ```{}
 Fst("microsatellite_geno_pop.txt", sizes = FALSE, pairs = FALSE, outputFile = "FST_microsatellite.txt",
     dataType = "Diploid", verbose = interactive())
 ```
 
-##File Guide
+###File Guide
 
 Microsatellite genotype data.xlsx has the raw microsatellite data
 Haplotypes of mtDNA-final.txt has the raw haplotype data
