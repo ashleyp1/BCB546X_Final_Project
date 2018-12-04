@@ -5,6 +5,9 @@ date: "December 4, 2018"
 output: html_document
 ---
 
+#Analysis and Formatting in R
+
+##Importing and Formatting Data
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
@@ -12,6 +15,7 @@ library(genepop)
 library(readxl)
 library(tidyverse)
 ```
+
 I had to go in excel and separate the sheets in the workbook into two different workbooks, microsatellite genotype data and sampling_information.
 
 ```{r Data Import}
@@ -103,15 +107,15 @@ write.table(microsatellite_genotype, "microsatellite_geno_pop.txt", na = "" ,quo
 
 ```
 
-###Genepop Analysis
-##Hardy-Weinburg
+##Genepop Analysis
+###Hardy-Weinburg
 ```{}
 test_HW("microsatellite_geno_pop.txt", which = "Proba", outputFile = "HW_microsatellite.txt.P", settingsFile = "",
         enumeration = FALSE, dememorization = 10000, batches = 100,iterations = 1000,
         verbose = interactive())
 ```
 
-##Linkage Disequilibrium
+###Linkage Disequilibrium
 ```{}
 test_LD("microsatellite_geno_pop.txt", outputFile = "LD_microsatellite.txt", settingsFile = "",
         dememorization = 10000, batches = 100, iterations = 5000,
@@ -119,7 +123,7 @@ test_LD("microsatellite_geno_pop.txt", outputFile = "LD_microsatellite.txt", set
 write_LD_tables("microsatellite_geno_pop.txt", outputFile = "", verbose = interactive())
 ```
 
-##FST
+###FST
 ```{}
 Fst("microsatellite_geno_pop.txt", sizes = FALSE, pairs = FALSE, outputFile = "FST_microsatellite.txt",
     dataType = "Diploid", verbose = interactive())
