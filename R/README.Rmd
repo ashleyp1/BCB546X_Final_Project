@@ -95,7 +95,7 @@ for (row in 2:218) {
 microsatellite_genotype$`Population,` <- NULL
 ```
 
-We have to write it to a txt file and then edite the last bit by hand
+We have to write it to a txt file and then edit the last bit by hand
 
 Open microsatellite_geno_pop.txt and hit enter after "Individual ID," so that it is the first line and the next is the list of loci. Then remove the comma after SSR9(H33). Now we have genepop formatted data.
 
@@ -130,10 +130,15 @@ Fst("microsatellite_geno_pop.txt", sizes = FALSE, pairs = FALSE, outputFile = "F
 ###File Guide
 
 Microsatellite genotype data.xlsx has the raw microsatellite data
+
 Haplotypes of mtDNA-final.txt has the raw haplotype data
+
 final_project_AP.R has this code as a script, instead of a markdown file
+
 microsatellite_geno_pop.txt has the genepop formatted microsatellite data
+
 mtDNA_haplotypes.fasta has the FASTA formatted mitochondrial DNA
+
 test_code.R has leftover bits of code that we didn't use, but are potentially useful
 cmdline and fichier.in are files that genepop uses
 
