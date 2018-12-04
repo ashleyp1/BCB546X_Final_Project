@@ -33,3 +33,13 @@ write.table(FASTA, "mtDNA.fasta")
 
 ##combine ids and sequences into pairs in data frame
 haplotypes <- do.call(rbind, Map(data.frame, ID = id, Sequence = sequence))
+
+
+
+micro_geno_pop <- read_excel("Microsatellite_genepop_data.xlsx")
+
+keeps <- c("Individual_ID","SSR1", "SSR2", "SSR3", "SSR4", "SSR5",
+           "SSR6", "SSR7", "SSR8", "SSR9")
+df = micro_geno_pop[keeps]
+df$Individual_ID =  paste(df$Individual_ID, ",")
+df <- data.frame(lapply(df, function(x) {gsub("POP ,", "pop", x)}))

@@ -1,0 +1,143 @@
+---
+title: "README"
+author: "Ashley Paulsen"
+date: "December 4, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(genepop)
+library(readxl)
+library(tidyverse)
+```
+I had to go in excel and separate the sheets in the workbook into two different workbooks, microsatellite genotype data and sampling_information.
+
+```{r Data Import}
+microsatellite_genotype <- read_excel("Microsatellite genotype data.xlsx")
+mtDNA_haplotypes <- read.table("Haplotypes of mtDNA-final.txt", sep = '\t', fill = T)
+```
+
+###FASTA formatting
+
+We needed the mtDNA Haplotype information in FASTA fromat for another analysis.
+
+```{r}
+mtDNA_haplotypes[] <- lapply(mtDNA_haplotypes, as.character)
+##save haplotype data as characters for grep
+
+##formatting mtDNA_haplotypes into fasta format, by removing the location information
+mtDNA_haplotypes <- subset(mtDNA_haplotypes, V3=="") 
+mtDNA_haplotypes$V2 <- NULL
+mtDNA_haplotypes$V3 <- NULL
+
+##save the cleaned up tables
+write.table(mtDNA_haplotypes, "mtDNA_haplotypes.fasta",quote = F, row.names = F,
+            col.names = F)
+```
+
+### Genepop Data Formatting
+
+Genepop requires a specific file format.
+
+```{r Data formatting}
+##add commas on 2nd row
+microsatellite_genotype[c(2),] =  paste(microsatellite_genotype[c(2),], ",", sep = "")
+colnames(microsatellite_genotype) <- microsatellite_genotype[c(2),] ##rename columns
+microsatellite_genotype <- microsatellite_genotype[-c(1, 2),] ##remove top two rows, now useless
+microsatellite_genotype$`Individual ID,` =  paste(microsatellite_genotype$`Individual ID,`, ",")
+  ##add commas to every ID
+```
+
+Genepop requires that every allele is identified by 2 number. This loop finds any position that has one char and adds a 0 in front so every position has 2 characters.
+
+```{r}
+microsatellite_genotype[] <- lapply(microsatellite_genotype, as.character)
+
+for (col in 3:ncol(microsatellite_genotype)){
+  for (row in 1:nrow(microsatellite_genotype)) {
+    n <- microsatellite_genotype[row, col]
+    if(nchar(n)!= 2) {
+      n = paste("0", n, sep = "")
+    }
+    microsatellite_genotype[row, col] <- n
+  }
+}  
+```
+
+We have to combine the two columns for each locus, so every locus has 4 numbers, two number for each allele.
+```{r}
+for (n in 3:11){
+  microsatellite_genotype[,c(n)] <- do.call(paste, c(microsatellite_genotype[,c(n,n+1)], sep = "")) 
+  microsatellite_genotype <- microsatellite_genotype[,-c(n+1)]
+}
+```
+
+Separate each population by the word pop, then remove the population column
+```{r}
+microsatellite_genotype <- add_row(microsatellite_genotype,`Individual ID,`='pop',
+                                   `Population,` = 'NA', .before = 1)
+for (row in 2:218) {
+  x <- microsatellite_genotype[row, c(2)]
+  y <- microsatellite_genotype[row+1, c(2)]
+  if(x != "NA"){
+    if(x != y){
+      microsatellite_genotype <- add_row(microsatellite_genotype,
+                                         `Individual ID,`='pop',`Population,` = 'NA',
+                                         .after = row)
+    }
+  }
+}
+##remove population column
+microsatellite_genotype$`Population,` <- NULL
+```
+
+We have to write it to a txt file and then edite the last bit by hand
+
+Open microsatellite_geno_pop.txt and hit enter after "Individual ID," so that it is the first line and the next is the list of loci. Then remove the comma after SSR9(H33). Now we have genepop formatted data.
+
+```{r}
+write.table(microsatellite_genotype, "microsatellite_geno_pop.txt", na = "" ,quote = F,
+            row.names = F, append = F)
+
+```
+
+###Genepop Analysis
+##Hardy-Weinburg
+```{}
+test_HW("microsatellite_geno_pop.txt", which = "Proba", outputFile = "HW_microsatellite.txt.P", settingsFile = "",
+        enumeration = FALSE, dememorization = 10000, batches = 100,iterations = 1000,
+        verbose = interactive())
+```
+
+##Linkage Disequilibrium
+```{}
+test_LD("microsatellite_geno_pop.txt", outputFile = "LD_microsatellite.txt", settingsFile = "",
+        dememorization = 10000, batches = 100, iterations = 5000,
+        verbose = interactive())
+write_LD_tables("microsatellite_geno_pop.txt", outputFile = "", verbose = interactive())
+```
+
+##FST
+```{}
+Fst("microsatellite_geno_pop.txt", sizes = FALSE, pairs = FALSE, outputFile = "FST_microsatellite.txt",
+    dataType = "Diploid", verbose = interactive())
+```
+
+##File Guide
+
+Microsatellite genotype data.xlsx has the raw microsatellite data
+Haplotypes of mtDNA-final.txt has the raw haplotype data
+final_project_AP.R has this code as a script, instead of a markdown file
+microsatellite_geno_pop.txt has the genepop formatted microsatellite data
+mtDNA_haplotypes.fasta has the FASTA formatted mitochondrial DNA
+test_code.R has leftover bits of code that we didn't use, but are potentially useful
+cmdline and fichier.in are files that genepop uses
+
+
+
+
+
+
+

@@ -1,0 +1,18 @@
+---
+title: "README.Rmd"
+author: "Ashley Paulsen"
+date: "December 4, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This file contains the genepop output files created by the code in the R folder.
+HW = hardy-weinburg
+LD = linkage disequilibrium
+TAB = Contingency tables for genotypic disequilibrium
+FST = frequency based correlation
+INF = Basic data for each locus in each population
+cmdline and fichier.in are files that genepop uses
