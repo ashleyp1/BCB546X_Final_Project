@@ -11,7 +11,7 @@ Paulsen focused on GenAlEx and R
 
 Sisson focused on STRUCTURE and JMP
 
-Zobrist focused on GenAlEx and Arlequin
+Zobrist focused on GenAlEx
 
 
 ##Figure 3
