@@ -12,3 +12,5 @@ Paulsen focused on GenAlEx and R
 Sisson focused on STRUCTURE and JMP
 
 Zobrist focused on GenAlEx
+
+Realized Paulsen mislabeled figure3.xlsx in tables and figures, should be figure2.
